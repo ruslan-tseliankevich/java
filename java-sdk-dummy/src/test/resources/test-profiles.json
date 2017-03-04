@@ -1,0 +1,12 @@
+{
+  "1234567890987654321": {
+    "humanProfile": {
+      "attributes": {},
+      "familyName": "My-Family-Name",
+      "fullName": "My-full-name",
+      "gender": "FEMALE"
+    },
+    "userId": "user-id-12345654321",
+    "receiptId": "1234567890987654321"
+  }
+}

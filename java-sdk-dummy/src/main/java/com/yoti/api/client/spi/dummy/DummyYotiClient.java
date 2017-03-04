@@ -1,5 +1,6 @@
 package com.yoti.api.client.spi.dummy;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,16 +19,20 @@ import com.yoti.api.client.YotiClient;
 import com.yoti.api.client.YotiClientConfiguration;
 import com.yoti.api.client.YotiClientFactory;
 
+import static com.yoti.api.client.spi.dummy.utils.ProfilesDeserializer.fromFile;
+
 public class DummyYotiClient implements YotiClient, YotiClientFactory {
     private static final String EXCEPTION_TRIGGER_PREFIX = "exception-";
     private static final String DUMMY_PREFIX = "dummy-";
-    private static final ActivityDetails DUMMY_RECEIPT;
+    public static final ActivityDetails DUMMY_RECEIPT;
+    private Map<String, ActivityDetails> PROFILES = new HashMap<String, ActivityDetails>();
 
     static {
         final HashMap<String, String> attributes = new HashMap<String, String>();
         attributes.put("date_of_birth", "1964-11-23");
         attributes.put("given_names", "John");
         attributes.put("family_name", "Doe");
+
         final HumanProfile userProfile = new HumanProfile() {
             @Override
             public String getAttribute(String name) {
@@ -182,12 +187,29 @@ public class DummyYotiClient implements YotiClient, YotiClientFactory {
         };
     }
 
+    public DummyYotiClient() {
+
+    }
+
+    public DummyYotiClient (String testProfilesFilePath) throws IOException {
+        PROFILES = fromFile(testProfilesFilePath);
+    }
+
     @Override
     public ActivityDetails getActivityDetails(String encryptedConnectToken) throws ProfileException {
         if (encryptedConnectToken != null && encryptedConnectToken.startsWith(EXCEPTION_TRIGGER_PREFIX)) {
             throw new ProfileException(encryptedConnectToken);
         }
-        return DUMMY_RECEIPT;
+
+        if (PROFILES.isEmpty()) {
+            return DUMMY_RECEIPT;
+        }
+
+        if (!PROFILES.containsKey(encryptedConnectToken)) {
+            throw new ProfileException("Unknown token");
+        }
+
+        return PROFILES.get(encryptedConnectToken);
     }
 
     @Override
