@@ -8,7 +8,7 @@ import com.yoti.api.client.HumanProfile;
 import java.util.Date;
 
 public class DummyActivityDetails implements ActivityDetails {
-    private DummyHumanProfile humanProfile;
+    private HumanProfile humanProfile;
     private ApplicationProfile applicationProfile;
     private String userId;
     private String receiptId;
@@ -38,7 +38,7 @@ public class DummyActivityDetails implements ActivityDetails {
         return receiptId;
     }
 
-    public void setDummyHumanProfile(DummyHumanProfile humanProfile) {
+    public void setHumanProfile(HumanProfile humanProfile) {
         this.humanProfile = humanProfile;
     }
 

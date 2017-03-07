@@ -96,30 +96,37 @@ public class DummyHumanProfile implements HumanProfile {
     }
 
     public void setFamilyName(String familyName) {
+        attributes.put("family_names", familyName);
         this.familyName = familyName;
     }
 
     public void setGivenNames(String givenNames) {
+        attributes.put("given_names", givenNames);
         this.givenNames = givenNames;
     }
 
     public void setFullName(String fullName) {
+        attributes.put("full_name", fullName);
         this.fullName = fullName;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
+        attributes.put("date_of_birth", dateOfBirth);
         this.dateOfBirth = dateOfBirth;
     }
 
     public void setGender(Gender gender) {
+        attributes.put("gender", gender.toString());
         this.gender = gender;
     }
 
     public void setNationality(String nationality) {
+        attributes.put("nationality", nationality);
         this.nationality = nationality;
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        attributes.put("phone_number", phoneNumber);
         this.phoneNumber = phoneNumber;
     }
 
@@ -128,6 +135,7 @@ public class DummyHumanProfile implements HumanProfile {
     }
 
     public void setEmailAddress(String emailAddress) {
+        attributes.put("email_address", emailAddress);
         this.emailAddress = emailAddress;
     }
 
